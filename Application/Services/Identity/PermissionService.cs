@@ -32,7 +32,6 @@ namespace Application.Services.Identity
                     return ServiceResult<List<string>>.Success(cachedPermissions);
                 }
                 var permissions = _permissionRepository.GetUserPermissions(userId);
-                // Cache for 5 minutes
                 _cache.Set(cacheKey, permissions, TimeSpan.FromMinutes(5));
                 return ServiceResult<List<string>>.Success(permissions);
             }

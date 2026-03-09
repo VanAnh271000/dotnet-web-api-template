@@ -60,12 +60,10 @@ namespace Shared.Extensions
 
                 Expression? stringExpression = null;
 
-                // Hỗ trợ string
                 if (propertyExpression.Type == typeof(string))
                 {
                     stringExpression = propertyExpression;
                 }
-                // Hỗ trợ decimal
                 else if (propertyExpression.Type == typeof(decimal) || propertyExpression.Type == typeof(decimal?))
                 {
                     stringExpression = Expression.Call(
@@ -133,15 +131,6 @@ namespace Shared.Extensions
             };
         }
 
-        //public static async Task<ReportResult<T>> ToReportResultAsync<T>(this IQueryable<T> query)
-        //{
-        //    var items = query.ToList();
-        //    return new ReportResult<T>
-        //    {
-        //        Data = items
-        //    };
-        //}
-
         private static Expression? GetPropertyExpression(ParameterExpression parameter, string propertyName)
         {
             try
@@ -160,10 +149,8 @@ namespace Shared.Extensions
             var targetType = Nullable.GetUnderlyingType(propertyExpression.Type) ?? propertyExpression.Type;
             if (filter.Operator.Equals("in", StringComparison.OrdinalIgnoreCase))
             {
-                // Ép filter.Value thành IEnumerable (ví dụ List<int>)
                 if (filter.Value is System.Collections.IEnumerable enumerable && !(filter.Value is string))
                 {
-                    // Convert từng phần tử về targetType
                     var list = Activator.CreateInstance(typeof(List<>).MakeGenericType(targetType))!;
                     var addMethod = list.GetType().GetMethod("Add")!;
 
@@ -173,10 +160,8 @@ namespace Shared.Extensions
                         addMethod.Invoke(list, new[] { convertedItem });
                     }
 
-                    // Tạo constant expression cho list
                     var listConstant = Expression.Constant(list);
 
-                    // Gọi Enumerable.Contains(list, property)
                     var containsMethod = typeof(Enumerable)
                     .GetMethods()
                     .First(m => m.Name == "Contains" && m.GetParameters().Length == 2)
@@ -193,18 +178,15 @@ namespace Shared.Extensions
 
                 throw new InvalidOperationException("IN operator requires a list of values");
             }
-            //var constantExpression = Expression.Constant(Convert.ChangeType(filter.Value, propertyExpression.Type));
             object? convertedValue;
 
             try
             {
 
-                // Nếu là GUID
                 if (targetType == typeof(Guid))
                 {
                     convertedValue = Guid.Parse(filter.Value.ToString());
                 }
-                // Nếu là Enum
                 else if (targetType.IsEnum)
                 {
                     convertedValue = Enum.Parse(targetType, filter.Value.ToString()!);

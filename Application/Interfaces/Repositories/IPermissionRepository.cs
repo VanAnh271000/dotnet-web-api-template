@@ -6,6 +6,5 @@ namespace Application.Interfaces.Repositories
     public interface IPermissionRepository : IGenericRepository<Permission, int>
     {
         List<string> GetUserPermissions(string userId);
-        //bool HasPermission(string userId, string permission);
     }
 }

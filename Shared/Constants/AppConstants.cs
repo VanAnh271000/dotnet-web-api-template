@@ -12,7 +12,7 @@
         public const int MaxPasswordLength = 100;
 
         // File Upload
-        public const long MaxFileSize = 10 * 1024 * 1024; // 10MB
+        public const long MaxFileSize = 10 * 1024 * 1024; 
         public static readonly string[] AllowedImageTypes = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
         public static readonly string[] AllowedDocumentTypes = { ".pdf", ".doc", ".docx", ".txt" };
 

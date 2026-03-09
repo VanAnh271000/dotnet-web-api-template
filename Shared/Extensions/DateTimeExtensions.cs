@@ -2,7 +2,6 @@
 
 namespace Shared.Extensions
 {
-    //Các phương thức cho DateTime (start/end of day/week/month, age calculation, relative time)
     public static class DateTimeExtensions
     {
         public static DateTime? ParseDateTime(this string? dateStr)
@@ -15,7 +14,6 @@ namespace Shared.Extensions
         public static DateTime? ParseDateTime(this long? unixTimestamp)
         {
             if (unixTimestamp == null) return null;
-            // Unix timestamp is seconds since 1970-01-01T00:00:00Z
             return DateTimeOffset.FromUnixTimeSeconds(unixTimestamp.Value).ToLocalTime().DateTime;
         }
 

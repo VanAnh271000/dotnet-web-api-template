@@ -5,7 +5,7 @@
         public string Field { get; set; } = string.Empty;
         public string Operator { get; set; } = "=="; 
         public object? Value { get; set; }
-        public string LogicalOperator { get; set; } = "and"; // and, or
+        public string LogicalOperator { get; set; } = "and";
     }
 
     public enum FilterOperator

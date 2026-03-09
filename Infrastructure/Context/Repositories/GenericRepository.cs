@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Context.Repositories
 {
-    public class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey> where TEntity : class
+    public abstract class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey> where TEntity : class
     {
         protected readonly ApplicationDbContext _context;
         protected readonly DbSet<TEntity> _dbSet;
@@ -92,7 +92,6 @@ namespace Infrastructure.Context.Repositories
 
         public IEnumerable<TEntity> GetAll(string[] includes = null)
         {
-            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
             if (includes != null && includes.Count() > 0)
             {
                 var query = _context.Set<TEntity>().Include(includes.First());
@@ -118,7 +117,6 @@ namespace Infrastructure.Context.Repositories
 
         public virtual IEnumerable<TEntity> GetMulti(Expression<Func<TEntity, bool>>? predicate, string[] includes = null)
         {
-            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
             if (includes != null && includes.Count() > 0)
             {
                 var query = _context.Set<TEntity>().Include(includes.First());
@@ -134,7 +132,6 @@ namespace Infrastructure.Context.Repositories
 
         public virtual IEnumerable<TEntity> GetMultiNoTracking(Expression<Func<TEntity, bool>>? predicate, string[] includes = null)
         {
-            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
             if (includes != null && includes.Count() > 0)
             {
                 var query = _context.Set<TEntity>().Include(includes.First());
@@ -179,7 +176,6 @@ namespace Infrastructure.Context.Repositories
             int skipCount = index * size;
             IQueryable<TEntity> _resetSet;
 
-            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
             if (includes != null && includes.Count() > 0)
             {
                 var query = _context.Set<TEntity>().Include(includes.First());

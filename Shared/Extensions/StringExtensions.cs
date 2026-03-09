@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 
 namespace SharedKernel.Extensions
 {
-    //Các phương thức mở rộng cho string (slug, hash, mask email, validation)
     public static class StringExtensions
     {
         public static bool IsNullOrEmpty(this string? value)

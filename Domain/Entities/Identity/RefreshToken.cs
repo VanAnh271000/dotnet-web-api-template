@@ -30,11 +30,9 @@ namespace Domain.Entities.Identity
         [StringLength(200)]
         public string? RevokedByIp { get; set; }
 
-        // Navigation property
         [ForeignKey(nameof(UserId))]
         public virtual ApplicationUser User { get; set; } = null!;
 
-        // Helper properties
         public bool IsExpired => DateTime.UtcNow >= ExpiryDate;
         public bool IsRevoked => RevokedDate != null;
     }

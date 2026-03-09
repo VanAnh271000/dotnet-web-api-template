@@ -2,7 +2,6 @@
 {
     public class CleanUpJob
     {
-        // Constructor
         public CleanUpJob()
         {
         }
